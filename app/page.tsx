@@ -1,30 +1,28 @@
 "use client";
-
 import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import linkedin from "../app/assets/imgs/linkedin.png";
 import waves from "../app/assets/svg/waves.svg";
 import { temaOptions } from "./constants/lists";
 import { Menu, Transition } from "@headlessui/react";
-import { AiFillCaretRight, AiFillCaretDown } from "react-icons/ai";
+import { AiFillCaretRight } from "react-icons/ai";
+
+interface Option {
+  label: string;
+  icon: JSX.Element;
+}
+const backgroundStyles = {
+  backgroundImage: `url(${waves.src}`, // Use .src para obter o URL do SVG
+  backgroundRepeat: "no-repeat",
+  backgroundSize: "cover",
+};
 
 const Home = () => {
-  // Estado para a opção selecionada no menu
-  const [selectedOption, setSelectedOption] = useState("");
-
-  // Estado para controlar a abertura/fechamento do menu
+  const [selectedOption, setSelectedOption] = useState<Option | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  // Alternar o estado do menu
-  const handleMenuToggle = () => {
-    setIsMenuOpen((prevState) => !prevState);
-  };
-
-  // Estado para o modo escuro
   const [darkMode, setDarkMode] = useState<boolean>(true);
 
-  // Carregar preferência do modo escuro do localStorage na renderização inicial
   useEffect(() => {
     const storedDarkMode = localStorage.getItem("darkMode");
     if (storedDarkMode !== null) {
@@ -34,7 +32,6 @@ const Home = () => {
     }
   }, []);
 
-  // Atualizar o modo escuro e o localStorage quando o darkMode mudar
   useEffect(() => {
     localStorage.setItem("darkMode", String(darkMode));
     if (darkMode) {
@@ -44,15 +41,18 @@ const Home = () => {
     }
   }, [darkMode]);
 
+  const buttonText = selectedOption ? `${selectedOption.label} ` : "Temas";
+
   return (
     <div
+      style={backgroundStyles}
       className={`min-h-screen ${
         darkMode
           ? "bg-gradient-to-b from-slate-700 to-slate-800"
           : "bg-slate-100"
       }`}
     >
-      <nav className="flex items-center justify-between bg-slate-800 p-2 mb-6 w-full">
+      <nav className="flex items-center justify-between bg-slate-700 duration-500 ease-in duration-500 dark:bg-slate-800 p-2  w-full">
         <div className="flex items-center m-2">
           <motion.h1
             initial={{ x: -100, opacity: 0 }}
@@ -86,13 +86,10 @@ const Home = () => {
         </div>
         <div className="flex items-center">
           <button
-            className="text-white text-2xl rounded-full bg-gray-600 w-10 h-10 p-4 m-2 relative overflow-hidden hover:bg-gray-700 hover:text-gray-200 transform transition-transform"
-            onClick={() => {
-              window.open(
-                "https://www.linkedin.com/in/deilton-pedro",
-                "_blank"
-              );
-            }}
+            className="text-white text-2xl rounded-full bg-slate-600 dark:bg-slate-700 ease-in transition duration-500 w-10 h-10 p-4 m-2 relative overflow-hidden "
+            onClick={() =>
+              window.open("https://www.linkedin.com/in/deilton-pedro", "_blank")
+            }
           >
             <motion.span
               className="absolute inset-0 flex justify-center items-center"
@@ -111,12 +108,15 @@ const Home = () => {
             </motion.span>
           </button>
           <button
-            className="text-white text-2xl rounded-full bg-gray-600 p-1 m-2 outline-none"
+            className="text-white text-2xl rounded-full bg-slate-600 dark:bg-slate-700 p-1 m-2 outline-none transition ease-in duration-500"
             title="Dark Mode"
             aria-label="Botão DarkMode"
             onClick={() => setDarkMode(!darkMode)}
           >
-            <div style={{ display: "flex" }}>
+            <div
+              className="bg-slate-500 dark:bg-slate-600 rounded-full ease-in duration-500"
+              style={{ display: "flex" }}
+            >
               <motion.span
                 role="img"
                 aria-label="Light Mode"
@@ -148,20 +148,28 @@ const Home = () => {
           </button>
         </div>
       </nav>
-      <main className="flex flex-col items-center justify-center h-full">
-        <div
-          style={{ backgroundImage: `url(${waves})` }}
-          className="flex justify-center items-center bg-cover bg-enter w-full h-full"
-        >
+      <main
+        style={{
+          backgroundImage: `url(${waves.src}), ${
+            darkMode
+              ? "linear-gradient(to bottom, #1A202C, #2D3748)"
+              : "linear-gradient(to bottom, #F7FAFC, #EDF2F7)"
+          }`,
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+        }}
+        className="flex flex-col items-center h-screen"
+      >
+        <div className="flex justify-center items-start pt-12 w-full h-full">
           <motion.section
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -50 }}
             transition={{ duration: 0.5 }}
-            className="bg-gradient-to-b from-slate-800 to-slate-900 w-auto rounded-xl p-20 border-4 border-white"
+            className="bg-gradient-to-b from-slate-800 to-slate-900 w-auto flex-col items-center justify-center rounded-xl p-10 border-4 border-slate-500 dark:border-white transition duration-500 ease-in"
           >
-            <div className="w-full h-full bg-blue-500 p-4 transform -skew-x-12 border-4 mb-4 border-white">
-              <h1 className="flex justify-center items-center h-full text-white font-bold text-6xl">
+            <div className="w-[20rem] h-full bg-blue-500 p-4 transform -skew-x-12 mx-auto border-4 mb-4 border-white">
+              <h1 className="flex justify-center items-center h-full text-white font-bold text-4xl">
                 Quiz
               </h1>
             </div>
@@ -169,17 +177,28 @@ const Home = () => {
               <Menu as="div" className="relative inline-block text-left">
                 <div>
                   <Menu.Button
-                    className={`outline-none text-white text-2xl group font-semibold flex justify-center items-center border-2 bg-blue-500 m-4 p-2 rounded-full w-[20rem] `}
-                    onClick={handleMenuToggle}
+                    className={`outline-none text-white text-2xl group font-semibold flex justify-center items-center border-2 bg-blue-500 m-4 p-2 rounded-full w-[13rem] `}
                   >
-                    Temas&nbsp;
-                    <AiFillCaretDown
-                      className={
-                        isMenuOpen
-                          ? "group-active:animate-pulse animate-bounce"
-                          : "animate-bounce"
-                      }
-                    />
+                    <AnimatePresence>
+                      <motion.span
+                        initial={{ opacity: 0, x: "100%" }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: "-100%" }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        {buttonText}
+                      </motion.span>
+                    </AnimatePresence>
+                    <AnimatePresence>
+                      {isMenuOpen && (
+                        <motion.div
+                          initial={{ rotate: 0 }}
+                          animate={{ rotate: 180 }}
+                          exit={{ rotate: 0 }}
+                          className="inline-block ml-2"
+                        ></motion.div>
+                      )}
+                    </AnimatePresence>
                   </Menu.Button>
                 </div>
                 <Transition
@@ -191,32 +210,59 @@ const Home = () => {
                   leaveFrom="transform opacity-100 scale-100"
                   leaveTo="transform opacity-0 scale-95"
                 >
-                  <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                  <Menu.Items className="absolute right-0 mt-2 w-full divide-y divide-slate-900 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                     <div className="px-1 py-1">
-                      {temaOptions.map(({ label, value, icon }, index) => (
+                      {temaOptions.map(({ label, icon }, index) => (
                         <Menu.Item key={index}>
-                          {({ active }) => (
-                            <button
-                              onClick={() => setSelectedOption(value)}
-                              className={`${
-                                active
-                                  ? "bg-blue-500 text-white"
-                                  : "text-slate-900"
-                              } group flex w-full items-center justify-between rounded-md pl-2 pr-6 py-2 text-sm`}
-                            >
-                              {label}
-                              {icon}
-                            </button>
-                          )}
+                          {({ active }) => {
+                            return (
+                              <button
+                                onClick={() =>
+                                  setSelectedOption({ label, icon })
+                                }
+                                className={`${
+                                  active
+                                    ? "bg-blue-500 text-white font-bold"
+                                    : "text-slate-900"
+                                } group flex w-full items-center justify-between rounded-md pl-2 pr-6 py-2 text-lg font-semibold`}
+                              >
+                                {label}
+                                {icon}
+                              </button>
+                            );
+                          }}
                         </Menu.Item>
                       ))}
                     </div>
                   </Menu.Items>
                 </Transition>
               </Menu>
-              <button className="text-amber-900 flex items-center justify-center text-5xl hover:text-blue-600  font-semibold border-2 bg-amber-500 m-6 p-2 rounded-full w-[20rem] hover:scale-[1.1] transition ease-in-out duratin-800">
+              <button
+                className={`text-amber-900 flex items-center justify-center text-3xl font-bold border-2 ${
+                  selectedOption &&
+                  (selectedOption.label === "Biologia" ||
+                    selectedOption.label === "História" ||
+                    selectedOption.label === "Tecnologia")
+                    ? "bg-amber-500 hover:text-blue-600 hover:scale-[1.1] transition ease-in-out duration-800 active:scale-[0.9]"
+                    : "bg-amber-200 cursor-not-allowed opacity-100"
+                } m-4 p-2 rounded-full w-[15rem]`}
+                disabled={
+                  !selectedOption ||
+                  !(
+                    selectedOption.label === "Biologia" ||
+                    selectedOption.label === "História" ||
+                    selectedOption.label === "Tecnologia"
+                  )
+                }
+                title={selectedOption ? "" : "Selecione um tema para jogar!"}
+              >
                 Play
-                <AiFillCaretRight className="" />
+                {selectedOption &&
+                  (selectedOption.label === "Biologia" ||
+                    selectedOption.label === "História" ||
+                    selectedOption.label === "Tecnologia") && (
+                    <AiFillCaretRight className="" />
+                  )}
               </button>
             </div>
           </motion.section>
