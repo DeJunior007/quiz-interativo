@@ -1,6 +1,6 @@
-<svg width="100%" height="100%" id="svg" viewBox="0 0 1440 590" xmlns="http://www.w3.org/2000/svg" class="transition duration-300 ease-in-out delay-150"><style>
+<svg width="100%" height="40%" id="svg" viewBox="0 -10 1000 1000" xmlns="http://www.w3.org/2000/svg" class="transition duration-[5s] ease-in-out delay-500"><style>
           .path-0{
-            animation:pathAnim-0 4s;
+            animation:pathAnim-0 8s;
             animation-timing-function: linear;
             animation-iteration-count: infinite;
           }
@@ -20,9 +20,9 @@
             100%{
               d: path("M 0,600 C 0,600 0,200 0,200 C 95.85645933014354,160.53588516746413 191.71291866028707,121.07177033492823 276,144 C 360.2870813397129,166.92822966507177 433.0047846889952,252.2488038277512 535,256 C 636.9952153110048,259.7511961722488 768.2679425837322,181.93301435406698 865,163 C 961.7320574162678,144.06698564593302 1023.9234449760766,184.01913875598086 1114,200 C 1204.0765550239234,215.98086124401914 1322.0382775119617,207.99043062200957 1440,200 C 1440,200 1440,600 1440,600 Z");
             }
-          }</style><defs><linearGradient id="gradient" x1="0%" y1="50%" x2="100%" y2="50%"><stop offset="5%" stop-color="#0693e3"></stop><stop offset="95%" stop-color="#8ED1FC"></stop></linearGradient></defs><path d="M 0,600 C 0,600 0,200 0,200 C 95.85645933014354,160.53588516746413 191.71291866028707,121.07177033492823 276,144 C 360.2870813397129,166.92822966507177 433.0047846889952,252.2488038277512 535,256 C 636.9952153110048,259.7511961722488 768.2679425837322,181.93301435406698 865,163 C 961.7320574162678,144.06698564593302 1023.9234449760766,184.01913875598086 1114,200 C 1204.0765550239234,215.98086124401914 1322.0382775119617,207.99043062200957 1440,200 C 1440,200 1440,600 1440,600 Z" stroke="none" stroke-width="0" fill="url(#gradient)" fill-opacity="0.53" class="transition-all duration-300 ease-in-out delay-150 path-0"></path><style>
+          }</style><defs><linearGradient id="gradient" x1="0%" y1="50%" x2="100%" y2="50%"><stop offset="5%" stop-color="#0693e3"></stop><stop offset="95%" stop-color="#8ED1FC"></stop></linearGradient></defs><path d="M 0,600 C 0,600 0,200 0,200 C 95.85645933014354,160.53588516746413 191.71291866028707,121.07177033492823 276,144 C 360.2870813397129,166.92822966507177 433.0047846889952,252.2488038277512 535,256 C 636.9952153110048,259.7511961722488 768.2679425837322,181.93301435406698 865,163 C 961.7320574162678,144.06698564593302 1023.9234449760766,184.01913875598086 1114,200 C 1204.0765550239234,215.98086124401914 1322.0382775119617,207.99043062200957 1440,200 C 1440,200 1440,600 1440,600 Z" stroke="none" stroke-width="0" fill="url(#gradient)" fill-opacity="0.53" class="transition-all duration-800 ease-in-out delay-150 path-0"></path><style>
           .path-1{
-            animation:pathAnim-1 4s;
+            animation:pathAnim-1 8s;
             animation-timing-function: linear;
             animation-iteration-count: infinite;
           }
