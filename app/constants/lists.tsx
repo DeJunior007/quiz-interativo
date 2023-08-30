@@ -10,17 +10,14 @@ const temaIcons = {
 export const temaOptions = [
   {
     label: "Biologia",
-    value: "Biologia",
     icon: React.createElement(temaIcons.Biologia),
   },
   {
     label: "História",
-    value: "História",
     icon: React.createElement(temaIcons.História),
   },
   {
     label: "Tecnologia",
-    value: "Tecnologia",
     icon: React.createElement(temaIcons.Tecnologia),
   },
 ];
